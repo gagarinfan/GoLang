@@ -1,10 +1,7 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	"strings"
 )
 
 type Person struct {
@@ -13,25 +10,39 @@ type Person struct {
 	age     int
 	hobby   string
 	active  bool
-	id      int
+	id      string
 }
 
-type people interface {
-	Describe() string
+type People interface {
+	GetName() string
 }
 
-func createUser(name, surname, hobby string, age, id int, active bool) *Person {
-	return &Person()
+func createUser(name, surname, hobby, id string, age int, active bool) *Person {
+	return &Person{name: name, surname: surname, age: age, hobby: hobby, active: active, id: id}
 }
 
-func getUsername(s string) {
-	fmt.Printf("Hi %v, how are you?\n", s)
+func (p *Person) GetName() string {
+	return (p.name + " " + p.surname)
+}
+
+func describe(p People) {
+	fmt.Println("Hi", p.GetName())
 }
 
 func main() {
-	reader := bufio.NewReader(os.Stdin)
+	//var map = make(map[string]Person)
+
 	fmt.Println("Insert your data here:")
-	name, _ := reader.ReadString('\n')
-	name = strings.Replace(name, "\n", "", -1)
-	getUsername(name)
+	var name, surname, hobby string
+	var age int
+	fmt.Scanln(&name)
+	fmt.Scanln(&surname)
+	fmt.Scanln(&age)
+	fmt.Scanln(&hobby)
+	active := true
+	id := "100" //for now let it be hardcoded
+
+	newMan := createUser(name, surname, hobby, id, age, active)
+	describe(newMan)
+
 }
