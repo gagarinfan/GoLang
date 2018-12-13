@@ -29,9 +29,13 @@ func describe(p People) {
 	fmt.Println("Hi", p.GetName())
 }
 
+func loadToMap(m map[string]Person, p Person) {
+	m[p.id] = p
+	fmt.Println(m)
+}
 func main() {
-	//var map = make(map[string]Person)
 
+	m := make(map[string]Person)
 	fmt.Println("Insert your data here:")
 	var name, surname, hobby string
 	var age int
@@ -44,5 +48,5 @@ func main() {
 
 	newMan := createUser(name, surname, hobby, id, age, active)
 	describe(newMan)
-
+	loadToMap(m, *newMan)
 }
