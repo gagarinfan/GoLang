@@ -43,3 +43,15 @@ func deletePersonByIDHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("Deleted person with ID: ", id)
 
 }
+
+func updatePersonByIDHandler(w http.ResponseWriter, r *http.Request) {
+	var person People
+	params := mux.Vars(r)
+	err := json.NewDecoder(r.Body).Decode(&person)
+	if err != nil {
+		log.Println("Error. Caused by: ", err)
+	}
+
+	id, _ := strconv.Atoi(params["id"])
+	updatePersonByID(id, person.Name, person.Surname, person.Age, person.Hobby, person.Active)
+}
