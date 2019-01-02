@@ -4,6 +4,9 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"strconv"
+
+	"github.com/gorilla/mux"
 )
 
 func getAllHandler(w http.ResponseWriter, r *http.Request) {
@@ -23,4 +26,12 @@ func createNewPersonHandler(w http.ResponseWriter, r *http.Request) {
 		id := createNewPerson(people.Name, people.Surname, people.Age, people.Hobby, people.Active)
 		log.Println("Created new person with ID: ", id)
 	}
+}
+
+func getPersonByIDEndpoint(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	id, _ := strconv.Atoi(params["id"])
+	person, _ := getPersonByID(id)
+	json.NewEncoder(w).Encode(person)
+
 }
