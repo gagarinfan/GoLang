@@ -28,10 +28,18 @@ func createNewPersonHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func getPersonByIDEndpoint(w http.ResponseWriter, r *http.Request) {
+func getPersonByIDHandler(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	id, _ := strconv.Atoi(params["id"])
 	person, _ := getPersonByID(id)
 	json.NewEncoder(w).Encode(person)
+
+}
+
+func deletePersonByIDHandler(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	id, _ := strconv.Atoi(params["id"])
+	deletePersonByID(id)
+	log.Println("Deleted person with ID: ", id)
 
 }

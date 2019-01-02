@@ -24,7 +24,6 @@ func getPersonByID(id int) (person People, err error) {
 	if err != nil {
 		log.Fatal("Can not connect to DB. Caused by ", err)
 	}
-	log.Println("Connected to DB")
 	db.Find(&person, "id = ?", id)
 	defer db.Close()
 	return person, err
@@ -56,7 +55,13 @@ func createNewPerson(name string, surname string, age int, hobby string, active 
 func updatePersonByID() {
 
 }
-func deletePersonByID() {
-
-}
 */
+func deletePersonByID(id int) {
+	db, err := gorm.Open("sqlite3", "gorm.db")
+	if err != nil {
+		log.Fatal("Can not connect to DB. Caused by ", err)
+	}
+	var person People
+	person.ID = id
+	db.Delete(&person)
+}
