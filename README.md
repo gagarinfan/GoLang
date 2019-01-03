@@ -9,7 +9,7 @@ This application is a simple REST app that stores people in database (here sqlit
 - age
 - hobby
 - active (is active? which is int 1 as true or 0 as false)
-) 
+
 # Initialize database
 
 Simple SQL to create table if not exist:

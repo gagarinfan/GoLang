@@ -7,6 +7,29 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
+func checkIfTableExist() bool {
+	var people People
+	db, err := gorm.Open("sqlite3", "gorm.db")
+	if err != nil {
+		log.Fatal("Can not connect to DB. Caused by ", err)
+	}
+	exist := db.HasTable(&people)
+	return exist
+}
+
+func createTable() (errcreated error) {
+	db, err := gorm.Open("sqlite3", "gorm.db")
+	if err != nil {
+		log.Fatal("Can not connect to DB. Caused by ", err)
+	}
+	var people People
+	errcreated = db.CreateTable(&people).Error
+	if errcreated != nil {
+		log.Println(errcreated)
+	}
+	return errcreated
+}
+
 func getAll() (persons []People, err error) {
 	db, err := gorm.Open("sqlite3", "gorm.db")
 	if err != nil {
